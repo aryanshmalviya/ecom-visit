@@ -5,6 +5,7 @@ export const orderType = defineType({
     name : "order",
     title: "Order",
     type: "document",
+    //@ts-ignore
     icon: BasketIcon,
     fields: [
         defineField({
@@ -134,6 +135,7 @@ export const orderType = defineType({
             orderId: "orderNumber",
             email: "email"
         },
+        //@ts-ignore
         prepare(select){
             const orderIdSnippet = `${select.orderId.slice(0,5)}...${select.orderId.slice(-5)}`;
             return{
