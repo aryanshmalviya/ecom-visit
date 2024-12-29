@@ -1,3 +1,4 @@
+import AddToBasketButton from "@/components/AddToBasketButton";
 import { imageUrl } from "@/lib/imageUrl";
 import { getProductBySlug } from "@/sanity/products/getProductBySlug";
 import { PortableText } from "next-sanity";
@@ -42,6 +43,9 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
                                 <PortableText value={product.description} />
                             )}
                         </div>
+                    </div>
+                    <div>
+                        <AddToBasketButton disabled={isOutOfStock} product={product} />
                     </div>
                 </div>
             </div>
