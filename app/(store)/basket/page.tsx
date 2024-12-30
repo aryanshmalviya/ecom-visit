@@ -1,5 +1,6 @@
 "use client"
 
+import { createCheckoutSession, Metadata } from "@/actions/createCheckoutSession";
 import AddToBasketButton from "@/components/AddToBasketButton";
 import Loader from "@/components/ui/Loader";
 import { imageUrl } from "@/lib/imageUrl";
@@ -7,7 +8,7 @@ import useBasketStore from "@/store/store"
 import { SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 function BasketPage() {
 
@@ -41,7 +42,17 @@ function BasketPage() {
         setIsClient(true);
 
         try {
-            
+            const metadData: Metadata = {
+                orderNumber: crypto.randomUUID(),
+                customerName: user?.fullName ?? "Unknown",
+                customerEmail: user?.emailAddresses[0].emailAddress ?? "Unknown",
+                clerkUserId: user!.id
+            }
+            const checkoutUrl = await createCheckoutSession(groupedItems, metadData);
+
+            if(checkoutUrl){
+                window.location.href = checkoutUrl;
+            }
         } catch (error) {
             console.log("Error loading checkout session", error)
         } finally {
