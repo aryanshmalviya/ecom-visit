@@ -8,18 +8,17 @@ import { PackageIcon, TrolleyIcon } from '@sanity/icons';
 import { Button } from './ui/button';
 import useBasketStore from '@/store/store';
 
-function Header() { 
+function Header() {
 
     const { user } = useUser();
     const itemCount = useBasketStore((state) => state.items.reduce((total, item) => total + (item.quantity || 0), 0))
-    // console.log("-=-=-=-=-=-=-=-=-=-=", itemCount);
-    
-    const createCLerkPasskey = async ()=>{
+
+    const createCLerkPasskey = async () => {
         try {
             const res = await user?.createPasskey();
             console.log("RES=====>>>", res);
         } catch (error) {
-            console.log("Error:", JSON.stringify(error,null, 2));
+            console.log("Error:", JSON.stringify(error, null, 2));
         }
     };
 
@@ -53,20 +52,23 @@ function Header() {
                         flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2  rounded
                     '>
                         <TrolleyIcon className='w-6 h-6' />
-                        <span className='absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs'>
-                            {itemCount}
-                        </span>
+                        {itemCount === 0 ?
+                            null :
+                            <span className='absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs'>
+                                {itemCount}
+                            </span>
+                        }
                         <span>My Basket</span>
                     </Link>
                     {/* user area */}
                     <ClerkLoaded>
                         <SignedIn>
-                        {user && (
-                            <Link href='/orders' className='flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
-                                <PackageIcon />
-                                <span>My Orders</span>
-                            </Link>
-                        )}
+                            {user && (
+                                <Link href='/orders' className='flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+                                    <PackageIcon />
+                                    <span>My Orders</span>
+                                </Link>
+                            )}
                         </SignedIn>
                         {user ? (
                             <div className='flex items-center space-x-2'>

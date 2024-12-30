@@ -13,7 +13,6 @@ function AddToBasketButton({ product, disabled }: AddToBasketButtonProps) {
 
     const { addItem, removeItem, getItemCount, clearBasket } = useBasketStore();
     const itemCount = getItemCount(product._id);
-    console.log("-=-=-=-=-=-=-=-=-=-=-=-=", itemCount);
     
     const [isClient, setIsCleint] = useState(false);
 
