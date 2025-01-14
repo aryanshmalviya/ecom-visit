@@ -8,7 +8,7 @@ import useBasketStore from "@/store/store"
 import { SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function BasketPage() {
 

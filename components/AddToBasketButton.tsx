@@ -11,7 +11,7 @@ interface AddToBasketButtonProps {
 
 function AddToBasketButton({ product, disabled }: AddToBasketButtonProps) {
 
-    const { addItem, removeItem, getItemCount, clearBasket } = useBasketStore();
+    const { addItem, removeItem, getItemCount } = useBasketStore();
     const itemCount = getItemCount(product._id);
     
     const [isClient, setIsCleint] = useState(false);
